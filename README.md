@@ -21,14 +21,14 @@
 
 ## Структура проекта
 1. Здесь развиваем Post на страницы (gem will paginate )
-- `app/controllers/post_controller.rb`
+- **app/controllers/post_controller.rb**
 
 2. ОСНОВНАЯ! реализация прокрутки на главной странице.
-- `app/views/posts/index.html.erb`
-- `app/views/posts/index.turbo_stream.erb`
+- **app/views/posts/index.html.erb**
+- **app/views/posts/index.turbo_stream.erb**
 
 3. Инструкции для заполнения базы данных. В данном случае фейковыми записями (gem faker).
-- `db/seeds.rb`
+- **db/seeds.rb**
 
 4. Шаблон для отдельного поста
-- `app/views/posts/_post.html.erb`
+- **app/views/posts/_post.html.erb**
