@@ -5,11 +5,6 @@
 - Ruby 3.0.2
 - Rails 7.0.8.1
 
-gem "tailwindcss-rails", "~> 2.6"
-gem "faker", "~> 3.3"
-gem "will_paginate", "~> 4.0"
-(подробнее можно ознакомиться в gemfile, гемы уже там прописаны)
-
 ## Установка
 1. Клонируйте репозиторий.
 2. Установите зависимости: `bundle install`
@@ -25,15 +20,15 @@ gem "will_paginate", "~> 4.0"
 4. Запустите
 
 ## Структура проекта
-- Здесь развиваем Post на страницы (gem will paginate )
-`app/controllers/post_controller.rb`
+* Здесь развиваем Post на страницы (gem will paginate )
+- `app/controllers/post_controller.rb`
 
-- ОСНОВНАЯ! реализация прокрутки на главной странице.
-`app/views/posts/index.html.erb`
-`app/views/posts/index.turbo_stream.erb`
+* ОСНОВНАЯ! реализация прокрутки на главной странице.
+- `app/views/posts/index.html.erb`
+- `app/views/posts/index.turbo_stream.erb`
 
-- Инструкции для заполнения базы данных. В данном случае фейковыми записями (gem faker).
-`db/seeds.rb`
+* Инструкции для заполнения базы данных. В данном случае фейковыми записями (gem faker).
+- `db/seeds.rb`
 
-- Шаблон для отдельного поста
-`app/views/posts/_post.html.erb`
+* Шаблон для отдельного поста
+- `app/views/posts/_post.html.erb`
