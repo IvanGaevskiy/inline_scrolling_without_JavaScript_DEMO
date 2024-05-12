@@ -26,14 +26,14 @@ gem "will_paginate", "~> 4.0"
 
 ## Структура проекта
 Здесь развиваем Post на страницы (gem will paginate )
-1. app/controllers/post_controller.rb
+`app/controllers/post_controller.rb`
 
 ОСНОВНАЯ! реализация прокрутки на главной странице.
-2. app/views/posts/index.html.erb
-3. app/views/posts/index.turbo_stream.erb
+`app/views/posts/index.html.erb`
+`app/views/posts/index.turbo_stream.erb`
 
 Инструкции для заполнения базы данных. В данном случае фейковыми записями (gem faker).
-4. db/seeds.rb
+`db/seeds.rb`
 
 Шаблон для отдельного поста
-5. app/views/posts/_post.html.erb
+`app/views/posts/_post.html.erb`
