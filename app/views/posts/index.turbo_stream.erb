@@ -1,0 +1,16 @@
+<%# Добавляем объекты в уже существующий контейнер <div  id="for_real_estates" ...> %>
+<%= turbo_stream.append "for_posts" do %>
+  <%= render partial: "posts/post", collection: @posts %>
+<% end %>
+
+<%# Проверяем, есть ли ещё объекты на след. стр.%>
+<%# Если есть, добавляем запрос для загрузки объектов следующей стр. в контейнер <div  id="for_real_estates" ...>  %>
+<% if @posts.next_page %>
+  <%= turbo_stream.append "for_posts" do %>
+    <%= turbo_frame_tag "load_more", src: posts_path(page: @posts.next_page, format: :turbo_stream), loading: :lazy %>
+  <% end %>
+<% end %>
+
+<%# Обновление текущей стр. объектов %>
+<%# Это нужно, если мы захотим показывать пользователю № текущей стр.%>
+<%= turbo_stream.update "current_page", @posts.current_page %>

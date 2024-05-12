@@ -1,0 +1,28 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Posts</h1>
+    <%= link_to "New Post", new_post_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <%# Создаем контейнер для объектов недвижимости при помощи турбо-фрейма и указываем, %>
+  <%# чтобы данные для него были загружены после загрузки основной  стр.%>
+  <%# (потоковая передача данных Turbo Streams) %>
+  <div>
+    <%= turbo_frame_tag "add_posts", src: posts_path(format: :turbo_stream), loading: :lazy %>
+	</div>
+
+<%# Далее добавляем их в пустой контейнер (см. index.turbo_stream.erb) %>
+  <div id="for_posts" class="min-w-full">
+  </div>
+
+</div>
+
+<%# Это счётчик страниц, который показывает сколько их всего прогрузилось %>
+<div class="fixed bottom-0 right-0 h-12 bg-gray-50/50 backdrop-blur-sm text-base font-medium py-2 text-gray-900 text-center border-t border-l border-gray-200/80 w-72">
+<p>🌐 Загрузилось страниц: <span id="current_page"><%= @posts.current_page %></span></p>
+</div>
