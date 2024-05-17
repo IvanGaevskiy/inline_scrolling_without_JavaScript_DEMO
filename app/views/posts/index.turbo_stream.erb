@@ -1,16 +1,28 @@
-<%# Добавляем объекты в уже существующий контейнер <div  id="for_real_estates" ...> %>
+<%# Добавляем посты в уже существующий контейнер <div  id="for_posts" ...> %>
 <%= turbo_stream.append "for_posts" do %>
   <%= render partial: "posts/post", collection: @posts %>
 <% end %>
 
-<%# Проверяем, есть ли ещё объекты на след. стр.%>
-<%# Если есть, добавляем запрос для загрузки объектов следующей стр. в контейнер <div  id="for_real_estates" ...>  %>
+<%# Если след. стр. последняя, удаляем лишнюю строку, которую генерирует turbo-frame%>
+<%# Если не удалить, займёт место поста, и там будет пустое место.%>
+<%# (Это если мы используем для загрузки объектов контейнер, и каждый объект в отдельной ячейке) %>
+<% if @posts.next_page == @total_pages %>
+  <%= turbo_stream.remove "load_more" %>
+<% end %>
+
+<%# Проверяем, есть ли ещё посты на след. стр.%>
 <% if @posts.next_page %>
+
+<%# Добавляем запрос для загрузки постов следующей стр. в контейнер <div  id="for_posts" ...>  %>
   <%= turbo_stream.append "for_posts" do %>
     <%= turbo_frame_tag "load_more", src: posts_path(page: @posts.next_page, format: :turbo_stream), loading: :lazy %>
   <% end %>
+
+<% else %>
+  <%# Если на след. стр. нет постов, то контейнер со значком прогрузки удаляется.%>
+  <%= turbo_stream.remove "for_download-icon"%>
 <% end %>
 
-<%# Обновление текущей стр. объектов %>
+<%# Обновление текущей стр. постов %>
 <%# Это нужно, если мы захотим показывать пользователю № текущей стр.%>
 <%= turbo_stream.update "current_page", @posts.current_page %>

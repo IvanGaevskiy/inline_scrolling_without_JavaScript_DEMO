@@ -5,24 +5,28 @@
 
 
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Posts</h1>
+    <h1 class="font-sans font-bold text-4xl">Posts</h1>
     <%= link_to "New Post", new_post_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <%# Создаем контейнер для объектов недвижимости при помощи турбо-фрейма и указываем, %>
-  <%# чтобы данные для него были загружены после загрузки основной  стр.%>
-  <%# (потоковая передача данных Turbo Streams) %>
-  <div>
-    <%= turbo_frame_tag "add_posts", src: posts_path(format: :turbo_stream), loading: :lazy %>
-	</div>
+<%# Создаем турбо-фрейм для загрузки постов и передачи их в другой контейнер.
+Посты будут загружаться после загрузки основной страницы. (Turbo Streams) %>
+<%= turbo_frame_tag "add_posts", src: posts_path(format: :turbo_stream), loading: :lazy %>
 
 <%# Далее добавляем их в пустой контейнер (см. index.turbo_stream.erb) %>
   <div id="for_posts" class="min-w-full">
   </div>
 
-</div>
-
 <%# Это счётчик страниц, который показывает сколько их всего прогрузилось %>
 <div class="fixed bottom-0 right-0 h-12 bg-gray-50/50 backdrop-blur-sm text-base font-medium py-2 text-gray-900 text-center border-t border-l border-gray-200/80 w-72">
-<p>🌐 Загрузилось страниц: <span id="current_page"><%= @posts.current_page %></span></p>
+  <p>🌐 Pages loaded: <span id="current_page"><%= @posts.current_page %></span></p>
+</div>
+
+<%# Значок прогрузки для: 1. стартовых постов; 2. постов след. страницы.%>
+<%# Этот html удаляется если на след. стр. нет объектов (см index.turbo_stream.erb) %>
+<div id="for_download-icon" class="mx-auto w-full max-w-7xl flex flex-col items-center">
+  <div class="h-14 p-6 shadow-lg bg-blue-600 rounded-md p-4 flex items-center">
+    <span class="font-sans font-bold mr-2 text-white">Loading...</span>
+    <div class="animate-spin rounded-full h-8 w-8 border-t-4 border-b-4 border-white"></div>
+  </div>
 </div>
